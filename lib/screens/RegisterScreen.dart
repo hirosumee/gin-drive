@@ -1,29 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/components/LoginForm.dart';
-//import 'package:flutter_app/constants/Constant.dart';
+import 'package:flutter_app/components/RegisterForm.dart';
 
-class LoginScreen  extends StatefulWidget{
+class RegisterScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _LoginState();
+    return _RegisterState();
   }
-
 }
-class _LoginState extends State<LoginScreen> {
+
+class _RegisterState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-//      appBar: AppBar(
-//        title: Text(TITLE),
-//      ),
       body: Center(
         child: Padding(
           padding: EdgeInsets.only(left: 10.0, right: 10.0),
-          child: LoginForm(),
+          child: RegisterForm(),
         ),
       ),
     );
   }
-
 }

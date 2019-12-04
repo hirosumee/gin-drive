@@ -1,20 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/components/CustomInput.dart';
+import 'package:flutter_app/components/SizeRoute.dart';
+import 'package:flutter_app/screens/LoginScreen.dart';
 import 'package:flutter_app/screens/RegisterScreen.dart';
 
-import 'SizeRoute.dart';
+import 'CustomInput.dart';
 
-class LoginForm extends StatefulWidget {
+class RegisterForm extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _LoginFormState();
+    return _RegisterFormState();
   }
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
-
+  final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -23,7 +24,7 @@ class _LoginFormState extends State<LoginForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            'LOGIN SCREEN',
+            'REGISTER SCREEN',
             style: TextStyle(
                 fontSize: 22, fontWeight: FontWeight.w500, letterSpacing: 1.0),
           ),
@@ -45,9 +46,26 @@ class _LoginFormState extends State<LoginForm> {
           CustomInput(
             labelText: 'Password',
             obscure: true,
+            controller: _passwordController,
             validator: (String value) {
               if (value.isEmpty) {
                 return 'Please enter your password.';
+              }
+              return null;
+            },
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 10),
+          ),
+          CustomInput(
+            labelText: 'Confirm Password',
+            obscure: true,
+            validator: (String value) {
+              if (value.isEmpty) {
+                return 'Please enter your password.';
+              }
+              if(value != _passwordController.text) {
+                return 'Confirm password must be match password';
               }
               return null;
             },
@@ -67,7 +85,10 @@ class _LoginFormState extends State<LoginForm> {
               },
               child: Text(
                 'Login',
-                style: Theme.of(context).textTheme.button,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .button,
               ),
             ),
           ),
@@ -76,12 +97,15 @@ class _LoginFormState extends State<LoginForm> {
           ),
           InkWell(
             child: Text(
-              'Is it your first time?',
-              style: Theme.of(context).textTheme.display1,
+              'Do you have a account ?',
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .display1,
             ),
             onTap: () {
               Navigator.of(context).pop();
-              Navigator.of(context).push(SizeRoute(page: RegisterScreen()));
+              Navigator.of(context).push(SizeRoute(page: LoginScreen()));
             },
           )
         ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/constants/Constant.dart';
 import 'package:flutter_app/screens/LoginScreen.dart';
+import 'package:flutter_app/screens/RegisterScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,11 +24,21 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
           primarySwatch: Colors.blue,
           primaryColor: Colors.blue,
-          textTheme: TextTheme(body1: TextStyle(color: Colors.blue, fontSize: 18.0))),
+          textTheme: TextTheme(
+              body1: TextStyle(color: Colors.blue, fontSize: 18.0),
+              button: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white),
+              display1: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.blue))),
       initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => LoginScreen(),
+        '/register': (context) => RegisterScreen()
         // When navigating to the "/second" route, build the SecondScreen widget.
       },
     );
