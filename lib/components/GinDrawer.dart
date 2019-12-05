@@ -38,7 +38,6 @@ class _State extends State<GinDrawer> {
         });
       }
     }, child: userBuilder(builder: (BuildContext context, state) {
-      if (_userModel == null) return DrawerHeader();
       return Drawer(
         child: ListView(
           // Important: Remove any padding from the ListView.
@@ -55,37 +54,26 @@ class _State extends State<GinDrawer> {
                         children: <Widget>[
                           Text('Welcome '),
                           Text(
-                            _userModel.fullname,
+                            _userModel != null ? _userModel.username : '',
                             style: TextStyle(
                                 fontSize: 16.0, fontWeight: FontWeight.w600),
                           )
                         ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 5, bottom: 5),
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Text('Your username: '),
-                          Text(
-                            _userModel.username,
-                            style: TextStyle(
-                                fontSize: 15.0, fontWeight: FontWeight.w600),
-                          )
-                        ],
-                      )
                     ],
                   ),
                   Align(
                     child: Container(
                       height: 60,
                       width: 60,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: new DecorationImage(
-                              fit: BoxFit.fill,
-                              image: new NetworkImage(
-                                  "https://i.imgur.com/WvMyk6o.gif"))),
+                      decoration: _userModel != null &&
+                              _userModel.avatar != null
+                          ? BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: new DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: new NetworkImage(_userModel.avatar)))
+                          : null,
                     ),
                     alignment: Alignment.topRight,
                   )

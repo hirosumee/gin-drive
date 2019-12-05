@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter_app/blocs/states/AuthenticationState.dart';
-import 'package:flutter_app/models/UserModel.dart';
 import 'package:flutter_app/resources/UserRepository.dart';
 import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
@@ -45,12 +44,12 @@ class AuthenticationBloc
     if (event is OnLoggedOut) {
       yield AuthenticationLoading();
       await userRepository.deleteToken();
+      await userRepository.onLogout();
       yield AuthenticationUnauthenticated();
     }
 
     if (event is OnRegister) {
       yield AuthenticationRegister();
     }
-
   }
 }

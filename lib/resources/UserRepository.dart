@@ -1,5 +1,7 @@
+import 'package:flutter_app/apis/UserApiProvider.dart';
 import 'package:flutter_app/models/UserModel.dart';
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserRepository {
   UserModel _userModel;
@@ -10,41 +12,40 @@ class UserRepository {
     @required String username,
     @required String password,
   }) async {
-    if (username != 'a') {
-      throw new Exception('Invalid username or password');
-    }
-    await Future.delayed(Duration(seconds: 1));
-    return 'token';
+    return userApiProvider.login(username, password);
   }
 
   Future<void> deleteToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     /// delete from keystore/keychain
-    await Future.delayed(Duration(seconds: 1));
+    await prefs.remove("token");
     return;
   }
 
   Future<void> persistToken(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     /// write to keystore/keychain
-    await Future.delayed(Duration(seconds: 1));
-    return;
+    await prefs.setString("token", token);
+  }
+
+  Future<String> getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString("token");
   }
 
   Future<bool> hasToken() async {
     /// read from keystore/keychain
-    await Future.delayed(Duration(seconds: 1));
-    return false;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString("token") != null;
   }
 
   Future<UserModel> getCurrentUser() async {
     if (this._userModel != null) {
       return this._userModel;
     }
-    return this._userModel = UserModel.fromJSON({
-      'username': 'hirosume',
-      'fullname': 'Vu Ngoc Cuong',
-      'email': 'cuongvn@inet.vn',
-      'avatar': 'https://google.com'
-    });
+    return this._userModel = await userApiProvider.getUser();
   }
 
   onLogout() {

@@ -22,7 +22,7 @@ class _LoginFormState extends State<LoginForm> {
 
 
   _LoginFormState() {
-    _usernameController.text = 'a';
+    _usernameController.text = 'hirosume1';
     _passwordController.text = 'a';
   }
 
