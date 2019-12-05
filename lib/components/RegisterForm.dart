@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/components/SizeRoute.dart';
-import 'package:flutter_app/screens/LoginScreen.dart';
-import 'package:flutter_app/screens/RegisterScreen.dart';
+import 'package:flutter_app/blocs/AuthenticationBloc.dart';
+import 'package:flutter_app/blocs/events/AuthenticationEvent.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'CustomInput.dart';
 
@@ -16,8 +16,13 @@ class RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    _onLoginButtonPressed() {
+      BlocProvider.of<AuthenticationBloc>(context).add(OnLogin());
+    }
+
     return Form(
       key: _formKey,
       child: Column(
@@ -64,7 +69,7 @@ class _RegisterFormState extends State<RegisterForm> {
               if (value.isEmpty) {
                 return 'Please enter your password.';
               }
-              if(value != _passwordController.text) {
+              if (value != _passwordController.text) {
                 return 'Confirm password must be match password';
               }
               return null;
@@ -79,16 +84,12 @@ class _RegisterFormState extends State<RegisterForm> {
             child: RaisedButton(
               onPressed: () {
                 if (_formKey.currentState.validate()) {
-                  Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text('Processing Data')));
+//                  _goToLogin(context);
                 }
               },
               child: Text(
-                'Login',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .button,
+                'Register',
+                style: Theme.of(context).textTheme.button,
               ),
             ),
           ),
@@ -98,15 +99,9 @@ class _RegisterFormState extends State<RegisterForm> {
           InkWell(
             child: Text(
               'Do you have a account ?',
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .display1,
+              style: Theme.of(context).textTheme.display1,
             ),
-            onTap: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).push(SizeRoute(page: LoginScreen()));
-            },
+            onTap: _onLoginButtonPressed,
           )
         ],
       ),
