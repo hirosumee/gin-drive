@@ -1,14 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter_app/apis/Api.dart';
 import 'package:flutter_app/models/UserModel.dart';
-import 'package:flutter_app/resources/UserRepository.dart';
 import 'package:http/http.dart' as http;
 
 class UserApiProvider {
   var client = new http.Client();
 
   Future<String> login(String username, String password) async {
-    return http.post('https://gin-drive.herokuapp.com/users/login',
+    return Api.post('/users/login',
         body: {'username': username, 'password': password}).then((response) {
       if (response.statusCode == 200) {
         return json.decode(response.body)['data'];
@@ -17,12 +17,10 @@ class UserApiProvider {
     });
   }
 
-  Future<UserModel> getUser() async {
-    String token = await userRepository.getToken();
-    return http.get('https://gin-drive.herokuapp.com/users',
-        headers: {'Authorization': 'Bearer ' + token}).then((response) {
-      print(response.statusCode);
-      print(response.body);
+  Future<UserModel> getUser() {
+    return Api.get(
+      '/users',
+    ).then((response) {
       if (response.statusCode == 200) {
         var map = json.decode(response.body);
         return UserModel.fromJSON(map['data']);

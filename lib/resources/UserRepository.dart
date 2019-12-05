@@ -42,6 +42,7 @@ class UserRepository {
   }
 
   Future<UserModel> getCurrentUser() async {
+    print(this._userModel);
     if (this._userModel != null) {
       return this._userModel;
     }
