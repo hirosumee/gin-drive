@@ -5,15 +5,21 @@ class Api {
   static final client = new http.Client();
   static String _baseUrl = 'https://gin-drive.herokuapp.com';
 
+  static Future<Map<String, String>> _getHeaders() async {
+    String _token = await userRepository.getToken();
+    if (_token != null) {
+      return {'Authorization': 'Bearer ' + _token};
+    }
+    return {};
+  }
+
   static Future<http.Response> post(path, {body}) async {
-    String token = await userRepository.getToken();
-    return client.post(_baseUrl + path,
-        body: body, headers: {'Authorization': 'Bearer ' + token});
+    var headers = await _getHeaders();
+    return client.post(_baseUrl + path, body: body, headers: headers);
   }
 
   static Future<http.Response> get(path) async {
-    String token = await userRepository.getToken();
-    return client
-        .get(_baseUrl + path, headers: {'Authorization': 'Bearer ' + token});
+    var headers = await _getHeaders();
+    return client.get(_baseUrl + path, headers: headers);
   }
 }

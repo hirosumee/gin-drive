@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/blocs/builders/AuthenticationBuilder.dart';
 import 'package:flutter_app/blocs/builders/UserBuilder.dart';
+import 'package:flutter_app/components/FileList.dart';
 import 'package:flutter_app/components/GinDrawer.dart';
 import 'package:flutter_app/constants/Constant.dart';
 
@@ -21,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
             appBar: AppBar(
               title: Text(TITLE),
             ),
+            body: FileList(),
             drawer: GinDrawer());
       },
     ));

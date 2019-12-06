@@ -28,3 +28,4 @@ class OnRegister extends AuthenticationEvent {}
 
 class OnLogin extends AuthenticationEvent {}
 
+class OnAuthenticationLoading extends AuthenticationEvent {}

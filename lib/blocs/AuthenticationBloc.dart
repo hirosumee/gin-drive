@@ -51,5 +51,9 @@ class AuthenticationBloc
     if (event is OnRegister) {
       yield AuthenticationRegister();
     }
+
+    if (event is OnAuthenticationLoading) {
+      yield AuthenticationLoading();
+    }
   }
 }

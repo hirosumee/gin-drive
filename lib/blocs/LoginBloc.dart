@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_app/blocs/states/AuthenticationState.dart';
 import 'package:flutter_app/blocs/states/LoginState.dart';
 import 'package:flutter_app/resources/UserRepository.dart';
 import 'package:meta/meta.dart';
@@ -27,6 +28,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield LoginLoading();
 
       try {
+
+        authenticationBloc.add(OnAuthenticationLoading());
         final token = await userRepository.authenticate(
           username: event.username,
           password: event.password,

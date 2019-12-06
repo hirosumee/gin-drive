@@ -7,7 +7,8 @@ class UserState extends Equatable {
 }
 
 class UserInitial extends UserState {
-  UserModel user;
+  final UserModel user;
+
   UserInitial({this.user});
 }
 

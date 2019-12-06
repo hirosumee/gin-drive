@@ -5,8 +5,6 @@ import 'package:flutter_app/models/UserModel.dart';
 import 'package:http/http.dart' as http;
 
 class UserApiProvider {
-  var client = new http.Client();
-
   Future<String> login(String username, String password) async {
     return Api.post('/users/login',
         body: {'username': username, 'password': password}).then((response) {
