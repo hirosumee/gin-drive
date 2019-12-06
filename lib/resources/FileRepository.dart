@@ -2,6 +2,7 @@ import 'package:flutter_app/apis/FileApiProvider.dart';
 import 'package:flutter_app/models/FileModel.dart';
 
 class FileRepository {
+
   Future<List<FileModel>> load() {
     return fileApiProvider.load().then((json) {
       List<FileModel> _list = [];
@@ -12,6 +13,8 @@ class FileRepository {
       return _list;
     });
   }
+
+
 }
 
 FileRepository fileRepository = FileRepository();

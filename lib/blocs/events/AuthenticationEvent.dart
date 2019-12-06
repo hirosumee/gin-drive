@@ -24,8 +24,8 @@ class OnLoggedIn extends AuthenticationEvent {
 
 class OnLoggedOut extends AuthenticationEvent {}
 
-class OnRegister extends AuthenticationEvent {}
+class OnRegisterPage extends AuthenticationEvent {}
 
-class OnLogin extends AuthenticationEvent {}
+class OnLoginPage extends AuthenticationEvent {}
 
 class OnAuthenticationLoading extends AuthenticationEvent {}

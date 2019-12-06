@@ -42,11 +42,14 @@ class UserRepository {
   }
 
   Future<UserModel> getCurrentUser() async {
-    print(this._userModel);
     if (this._userModel != null) {
       return this._userModel;
     }
-    return this._userModel = await userApiProvider.getUser();
+    return (this._userModel = await userApiProvider.getUser());
+  }
+
+  Future<bool> register(String username, String password) async {
+    return userApiProvider.register(username, password);
   }
 
   onLogout() {

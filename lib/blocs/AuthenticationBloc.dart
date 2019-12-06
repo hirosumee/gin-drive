@@ -31,7 +31,7 @@ class AuthenticationBloc
       }
     }
 
-    if (event is OnLogin) {
+    if (event is OnLoginPage) {
       yield AuthenticationUnauthenticated();
     }
 
@@ -48,7 +48,7 @@ class AuthenticationBloc
       yield AuthenticationUnauthenticated();
     }
 
-    if (event is OnRegister) {
+    if (event is OnRegisterPage) {
       yield AuthenticationRegister();
     }
 

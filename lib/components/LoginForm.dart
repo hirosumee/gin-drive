@@ -6,6 +6,7 @@ import 'package:flutter_app/blocs/events/AuthenticationEvent.dart';
 import 'package:flutter_app/blocs/events/LoginEvent.dart';
 import 'package:flutter_app/blocs/states/LoginState.dart';
 import 'package:flutter_app/components/CustomInput.dart';
+import 'package:flutter_app/components/LoadingIndicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginForm extends StatefulWidget {
@@ -20,12 +21,10 @@ class _LoginFormState extends State<LoginForm> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
-
   _LoginFormState() {
     _usernameController.text = 'hirosume1';
     _passwordController.text = 'a';
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -39,21 +38,25 @@ class _LoginFormState extends State<LoginForm> {
     }
 
     _onRegisterButtonPress() {
-      BlocProvider.of<AuthenticationBloc>(context).add(OnRegister());
+      BlocProvider.of<AuthenticationBloc>(context).add(OnRegisterPage());
     }
 
     return BlocListener<LoginBloc, LoginState>(listener: (context, state) {
       if (state is LoginFailure) {
         Scaffold.of(context).showSnackBar(
           SnackBar(
-            content: Text('${state.error}'),
+            content: Text(
+              '${state.error}',
+              style: Theme.of(context).textTheme.button,
+            ),
             backgroundColor: Colors.red,
           ),
         );
-      } else if (state is LoginInitial) {
-        print('meo');
       }
     }, child: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+      if (state is LoginLoading) {
+        return LoadingIndicator();
+      }
       return Form(
         key: _formKey,
         child: Column(
@@ -107,10 +110,10 @@ class _LoginFormState extends State<LoginForm> {
                 },
                 child: Text(
                   'Login',
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .button,
+                  style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white),
                 ),
               ),
             ),

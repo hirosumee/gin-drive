@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter_app/apis/Api.dart';
 import 'package:flutter_app/models/UserModel.dart';
-import 'package:http/http.dart' as http;
 
 class UserApiProvider {
   Future<String> login(String username, String password) async {
@@ -11,7 +10,19 @@ class UserApiProvider {
       if (response.statusCode == 200) {
         return json.decode(response.body)['data'];
       }
-      throw new Exception('Login failure');
+      throw new Exception('Username or password is invalid');
+    });
+  }
+
+  Future<bool> register(String username, String password) async {
+    return Api.post('/users/register',
+        body: {'username': username, 'password': password}).then((res) {
+      Map<String, dynamic> body = json.decode(res.body);
+      print(body);
+      if (res.statusCode == 200) {
+        return true;
+      }
+      throw new Exception(body['data']);
     });
   }
 

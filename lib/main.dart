@@ -30,6 +30,7 @@ class SimpleBlocDelegate extends BlocDelegate {
   @override
   void onEvent(Bloc bloc, Object event) {
     super.onEvent(bloc, event);
+    print('onEvent:');
     print(event);
   }
 
@@ -42,6 +43,7 @@ class SimpleBlocDelegate extends BlocDelegate {
   @override
   void onError(Bloc bloc, Object error, StackTrace stacktrace) {
     super.onError(bloc, error, stacktrace);
+    print('onError:');
     print(error);
   }
 }
@@ -51,11 +53,12 @@ final themeData = ThemeData(
     primarySwatch: Colors.blue,
     primaryColor: Colors.blue,
     textTheme: TextTheme(
-        body1: TextStyle(color: Colors.blue, fontSize: 18.0),
-        button: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
-        display1: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.w500, color: Colors.blue)));
+      body1: TextStyle(color: Colors.blue, fontSize: 18.0),
+      button: TextStyle(color: Colors.white),
+      display1: TextStyle(
+          fontSize: 18, fontWeight: FontWeight.w500, color: Colors.blue),
+      display2: TextStyle(color: Colors.white, fontSize: 1.0),
+    ));
 
 final appBloc = BlocBuilder<AuthenticationBloc, AuthenticationState>(
     builder: (context, state) {
